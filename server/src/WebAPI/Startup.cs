@@ -7,6 +7,7 @@ namespace WebAPI
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Persistence;
+    using WebAPI.Extensions;
 
     public class Startup
     {
@@ -20,8 +21,9 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LyricsDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString(LyricsDbContext.ConnectionName)));
-
             services.AddControllers();
+
+            services.RegisterDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

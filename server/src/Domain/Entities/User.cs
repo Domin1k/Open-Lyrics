@@ -13,8 +13,8 @@
             LastName = lastName;
             Username = SetUsername(username);
             Email = SetEmail(email);
-            PasswordHash = SetPassword(passwordHash);
-            PasswordSalt = SetPassword(passwordSalt);
+            PasswordHash = SetHash(passwordHash);
+            PasswordSalt = SetSalt(passwordSalt);
             Lyrics = lyrics ?? new List<Lyric>();
         }
 
@@ -42,7 +42,34 @@
             return username;
         }
 
-        private byte[] SetPassword(byte[] pass) => pass ?? throw new DomainException($"Parameter - {nameof(pass)} cannot be null!");
+        private byte[] SetHash(byte[] storedHash)
+        {
+            if (storedHash == null)
+            {
+                throw new DomainException($"Parameter - {nameof(storedHash)} cannot be null!");
+            }
+
+            if (storedHash.Length != 64)
+            {
+                throw new DomainException("Invalid length of password hash (64 bytes expected).");
+            }
+            return storedHash;
+        }
+
+        private byte[] SetSalt(byte[] storedSalt)
+        {
+            if (storedSalt == null)
+            {
+                throw new DomainException($"Parameter - {nameof(storedSalt)} cannot be null!");
+            }
+
+            if (storedSalt.Length != 128)
+            {
+                throw new DomainException("Invalid length of password salt (128 bytes expected).");
+            }
+
+            return storedSalt;
+        }
 
 
         private string SetEmail(string email)

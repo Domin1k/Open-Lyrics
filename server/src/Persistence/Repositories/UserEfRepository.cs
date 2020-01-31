@@ -42,6 +42,14 @@
             .Include(x => x.Lyrics)
             .FirstOrDefaultAsync(x => x.Id == id);
 
+        public async Task<User> GetByUsernameAsync(string username)
+             => await _dbContext
+                .Users
+                .AsQueryable()
+                .AsNoTracking()
+                .Include(x => x.Lyrics)
+                .FirstOrDefaultAsync(x => x.Username == username);
+
         public async Task UpdateAsync(User entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

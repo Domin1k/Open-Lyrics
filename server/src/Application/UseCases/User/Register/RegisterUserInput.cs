@@ -1,8 +1,8 @@
 ﻿namespace Application.UseCases.User.Register
 {
-    public class CreateUserInput
+    public class RegisterUserInput
     {
-        public CreateUserInput(string firstName, string lastName, string username, string email, string password, string confirmPassword)
+        public RegisterUserInput(string firstName, string lastName, string username, string email, string password, string confirmPassword)
         {
             FirstName = firstName;
             LastName = lastName;
