@@ -2,35 +2,66 @@
 {
     using Application.Interfaces.Repositories;
     using Domain.Entities;
-    using System;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class LyricEfRepository : ILyricRepository
     {
-        public Task CreateAsync(Lyric entity)
+        private readonly LyricsDbContext _dbContext;
+
+        public LyricEfRepository(LyricsDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
 
-        public Task DeleteAsync(Lyric entity)
+        public async Task UpdateAsync(User entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            foreach (var lyrics in entity.Lyrics)
+            {
+                if (lyrics.Id == default)
+                {
+                    _dbContext.Entry(entity).State = EntityState.Added;
+                }
+                else
+                {
+                    _dbContext.Entry(entity).State = EntityState.Modified;
+                }
+            }
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Lyric>> GetAllAsync()
+        public async Task CreateAsync(Lyric entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Lyrics.Add(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<Lyric> GetAsync(int id)
+        public async Task DeleteAsync(Lyric entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(entity).State = EntityState.Deleted;
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(Lyric entity)
+        public async Task<IEnumerable<Lyric>> GetAllAsync()
+            => await _dbContext
+                .Lyrics
+                .AsNoTracking()
+                .ToListAsync();
+
+        public async Task<Lyric> GetAsync(int id)
+             => await _dbContext
+                .Lyrics
+                .AsQueryable()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task UpdateAsync(Lyric entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

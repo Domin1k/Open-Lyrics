@@ -4,6 +4,7 @@
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class UserEfRepository : IUserRepository
@@ -37,25 +38,27 @@
         public async Task<User> GetAsync(int id)
             => await _dbContext
             .Users
-            .AsQueryable()
             .AsNoTracking()
-            .Include(x => x.Lyrics)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<User> GetByUsernameAsync(string username)
              => await _dbContext
                 .Users
-                .AsQueryable()
-                .AsNoTracking()
-                .Include(x => x.Lyrics)
-                .FirstOrDefaultAsync(x => x.Username == username);
-
+                .Where(x => x.Username == username)
+                .Select(x => new User
+                {
+                    Id = x.Id,
+                    Username = x.Username,
+                    PasswordSalt = x.PasswordSalt,
+                    PasswordHash = x.PasswordHash
+                })
+                .FirstOrDefaultAsync();
         public async Task UpdateAsync(User entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             foreach (var lyrics in entity.Lyrics)
             {
-                if (lyrics.Id == default(int))
+                if (lyrics.Id == default)
                 {
                     _dbContext.Entry(entity).State = EntityState.Added;
                 }

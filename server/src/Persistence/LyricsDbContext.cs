@@ -18,7 +18,12 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new PollEntityTypeConfiguration());
+            modelBuilder.Entity<Lyric>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.Lyrics)
+                .HasForeignKey(x => x.AuthorId);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
