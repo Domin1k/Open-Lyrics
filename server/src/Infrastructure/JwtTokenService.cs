@@ -2,6 +2,7 @@
 {
     using Application.Interfaces;
     using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Logging;
     using Microsoft.IdentityModel.Tokens;
     using System;
     using System.IdentityModel.Tokens.Jwt;

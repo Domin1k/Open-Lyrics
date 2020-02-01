@@ -8,4 +8,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Lyrics\Delete\" />
+    <Folder Include="UseCases\Lyrics\Edit\" />
+  </ItemGroup>
+
 </Project>

@@ -7,30 +7,52 @@
 
     public class User : Entity<int>
     {
-        public User(string firstName, string lastName, string username, string email, byte[] passwordHash, byte[] passwordSalt, ICollection<Lyric> lyrics)
+        private string _username;
+        private string _email;
+        private byte[] _passHash;
+        private byte[] _passSalt;
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Username
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Username = SetUsername(username);
-            Email = SetEmail(email);
-            PasswordHash = SetHash(passwordHash);
-            PasswordSalt = SetSalt(passwordSalt);
-            Lyrics = lyrics ?? new List<Lyric>();
+            get => _username;
+            set
+            {
+                _username = SetUsername(value);
+            }
         }
 
-        public string FirstName { get; }
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = SetEmail(value);
+            }
+        }
 
-        public string LastName { get; }
-        
-        public string Username { get; }
+        public byte[] PasswordHash
+        {
+            get => _passHash;
+            set
+            {
+                _passHash = SetHash(value);
+            }
+        }
 
-        public string Email { get; }
-        
-        public byte[] PasswordHash { get; }
-        
-        public byte[] PasswordSalt { get; }
+        public byte[] PasswordSalt
+        {
+            get => _passSalt;
+            set
+            {
+                _passSalt = SetSalt(value);
+            }
+        }
 
-        public ICollection<Lyric> Lyrics { get; }
+        public ICollection<Lyric> Lyrics { get; set; } = new List<Lyric>();
 
         private string SetUsername(string username)
         {

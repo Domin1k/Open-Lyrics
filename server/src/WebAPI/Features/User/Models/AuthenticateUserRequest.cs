@@ -2,10 +2,10 @@
 {
     public class AuthenticateUserRequest
     {
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public string Password { get; }
+        public string Password { get; set; }
 
-        public string ConfirmPassword { get; }
+        public string ConfirmPassword { get; set; }
     }
 }

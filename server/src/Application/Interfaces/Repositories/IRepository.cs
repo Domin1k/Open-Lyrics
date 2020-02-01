@@ -14,5 +14,7 @@
         Task UpdateAsync(TEntity entity);
 
         Task DeleteAsync(TEntity entity);
+
+        Task<bool> ExistsAsync(TKey id);
     }
 }

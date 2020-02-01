@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities
+﻿namespace WebAPI.Features.Lyric.Models
 {
-    public class Lyric : Entity<int>
+    public class CreateLyricRequest
     {
         public string Text { get; set; }
 
@@ -9,7 +9,5 @@
         public string Singer { get; set; }
 
         public int AuthorId { get; set; }
-
-        public User Author { get; set; }
     }
 }

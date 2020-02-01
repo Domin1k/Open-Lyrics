@@ -2,11 +2,14 @@
 {
     using Application.UseCases.User.Login;
     using Application.UseCases.User.Register;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
     using WebAPI.Features.User.Models;
     using WebAPI.Shared;
 
+
+    [Authorize]
     public class UsersController : BaseController
     {
         private readonly IRegisterInputHandler<IActionResult> _registerInputHandler;
@@ -26,7 +29,8 @@
             _authOutputHandler = authOutputHandler;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterUser(RegisterUserRequest request)
         {
             var registerUserInput = new RegisterUserInput(request.FirstName, request.LastName, request.Username, request.Email, request.Password, request.ConfirmPassword);
@@ -34,7 +38,8 @@
             return _registerOutputHandler.Result();
         }
 
-        [HttpPost]
+        [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> AuthenticateUser(AuthenticateUserRequest request)
         {
             if (request.Password != request.ConfirmPassword)
@@ -46,6 +51,19 @@
             var authInput = new AuthenticateUserInput(request.Username, request.Password);
             await _authInputHandler.HandleAsync(authInput, _authOutputHandler);
             return _authOutputHandler.Result();
+        }
+
+        [Route("noauth")]
+        [AllowAnonymous]
+        public IActionResult NoAuth()
+        {
+            return Ok("Hello from No Auth");
+        }
+        
+        [Route("auth")]
+        public IActionResult Auth()
+        {
+            return Ok("Hello from Auth");
         }
     }
 }

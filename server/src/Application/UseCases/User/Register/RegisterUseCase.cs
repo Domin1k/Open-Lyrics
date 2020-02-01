@@ -18,7 +18,15 @@
         {
             var (passwordHash, passwordSalt) = CreatePasswordHash(input.Password);
 
-            var user = new User(input.FirstName, input.LastName, input.Username, input.Email, passwordHash, passwordSalt, null);
+            var user = new User
+            {
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                Username = input.Username,
+                Email = input.Email,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
+            };
 
             await _userRepository.CreateAsync(user);
 

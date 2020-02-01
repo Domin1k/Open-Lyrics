@@ -28,6 +28,11 @@
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<bool> ExistsAsync(int id)
+            => await _dbContext
+                .Users
+                .AnyAsync(x => x.Id == id);
+
         public async Task<IEnumerable<User>> GetAllAsync()
             => await _dbContext
                 .Users

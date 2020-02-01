@@ -7,7 +7,7 @@ namespace WebAPI
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Persistence;
-    using WebAPI.Extensions;
+    using WebAPI.Infrastructure.Extensions;
 
     public class Startup
     {
@@ -24,6 +24,7 @@ namespace WebAPI
             services.AddControllers();
 
             services.RegisterDependencies();
+            services.AddJwtAuthorization(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +38,7 @@ namespace WebAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

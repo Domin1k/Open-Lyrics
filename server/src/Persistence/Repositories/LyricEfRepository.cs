@@ -4,6 +4,7 @@
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class LyricEfRepository : ILyricRepository
@@ -63,5 +64,27 @@
             
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Lyric>> GetAllNonDeletedAsync(int page, int pageSize)
+            => await _dbContext
+                .Lyrics
+                .Skip(page - 1 * (page * pageSize))
+                .Take(pageSize)
+                .AsNoTracking()
+                .Select(x => new Lyric
+                {
+                    Id = x.Id,
+                    Singer = x.Singer,
+                    Text = x.Text,
+                    Title = x.Title,
+                    AuthorId = x.AuthorId,
+                    Author = x.Author
+                })
+                .ToListAsync();
+
+        public async Task<bool> ExistsAsync(int id)
+            => await _dbContext
+                .Lyrics
+                .AnyAsync(x => x.Id == id);
     }
 }
