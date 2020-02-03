@@ -1,4 +1,4 @@
-﻿namespace Infrastructure
+﻿namespace Foundation.Services
 {
     using Application.Interfaces;
     using Microsoft.Extensions.Options;
@@ -11,9 +11,9 @@
 
     public class JwtTokenService : ITokenService
     {
-        private AppSettings _options;
+        private TokenSettings _options;
 
-        public JwtTokenService(IOptions<AppSettings> options)
+        public JwtTokenService(IOptions<TokenSettings> options)
         {
             _options = options.Value;
         }

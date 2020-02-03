@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Lyrics.GetAll
+﻿namespace Application.UseCases.Lyrics.Create
 {
     using System.Threading.Tasks;
 

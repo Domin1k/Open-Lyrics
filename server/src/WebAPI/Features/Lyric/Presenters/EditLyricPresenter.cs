@@ -1,9 +1,9 @@
 ﻿namespace WebAPI.Features.Lyric.Presenters
 {
-    using Application.UseCases.Lyrics.Create;
+    using Application.UseCases.Lyrics.Edit;
     using Microsoft.AspNetCore.Mvc;
 
-    public class CreateLyricPresenter : ICreateLyricOutputHandler<IActionResult>
+    public class EditLyricPresenter : IEditLyricOutputHandler<IActionResult>
     {
         private IActionResult _result;
 
@@ -15,6 +15,6 @@
                 ErrorMessage = msg
             });
 
-        public void Success(CreateLyricOutput output) => _result = new CreatedResult(string.Empty, output.Id);
+        public void Success(EditLyricOutput output) => _result = new OkObjectResult(output);
     }
 }

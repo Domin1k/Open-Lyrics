@@ -1,6 +1,6 @@
-﻿namespace Application.UseCases.Lyrics.Create
+﻿namespace WebAPI.Features.Lyric.Models
 {
-    public class CreateLyricInput
+    public class EditLyricRequest
     {
         public string Text { get; set; }
 

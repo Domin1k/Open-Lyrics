@@ -7,7 +7,7 @@ namespace WebAPI
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Persistence;
-    using WebAPI.Infrastructure.Extensions;
+    using WebAPI.Extensions;
 
     public class Startup
     {

@@ -1,6 +1,6 @@
-﻿namespace Infrastructure
+﻿namespace Foundation
 {
-    public class AppSettings
+    public class TokenSettings
     {
         public string Secret { get; set; }
     }

@@ -1,11 +1,16 @@
-﻿namespace WebAPI.Infrastructure.Extensions
+﻿namespace WebAPI.Extensions
 {
     using Application.Interfaces;
     using Application.Interfaces.Repositories;
+    using Application.UseCases.Lyrics.Create;
+    using Application.UseCases.Lyrics.Delete;
+    using Application.UseCases.Lyrics.Details;
+    using Application.UseCases.Lyrics.Edit;
+    using Application.UseCases.Lyrics.GetAll;
     using Application.UseCases.User.Login;
     using Application.UseCases.User.Register;
-    using global::Infrastructure;
-    using Infrastructure;
+    using Foundation;
+    using Foundation.Services;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -14,6 +19,7 @@
     using Persistence.Repositories;
     using System.Text;
     using System.Threading.Tasks;
+    using WebAPI.Features.Lyric.Presenters;
     using WebAPI.Features.User.Presenters;
 
     public static class ServiceCollectionExtensions
@@ -28,11 +34,21 @@
             services.AddScoped<ILyricRepository, LyricEfRepository>();
 
             // Use cases:
+            services.AddScoped(typeof(IAllLyricsInputHandler<>), typeof(AllLyricsUseCase<>));
+            services.AddScoped(typeof(ICreateLyricInputHandler<>), typeof(CreateLyricUseCase<>));
+            services.AddScoped(typeof(IEditLyricInputHandler<>), typeof(EditLyricUseCase<>));
+            services.AddScoped(typeof(IDeleteLyricInputHandler<>), typeof(DeleteLyricUseCase<>));
             services.AddScoped(typeof(IRegisterInputHandler<>), typeof(RegisterUseCase<>));
+            services.AddScoped(typeof(IDetailsLyricsInputHandler<>), typeof(DetailsLyricsUseCase<>));
             services.AddScoped(typeof(IAuthenticateInputHandler<>), typeof(AuthenticateUseCase<>));
 
             // Presenters:
+            services.AddScoped<IAllLyricsOutputHandler<IActionResult>, AllLyricsPresenter>();
+            services.AddScoped<ICreateLyricOutputHandler<IActionResult>, CreateLyricPresenter>();
+            services.AddScoped<IEditLyricOutputHandler<IActionResult>, EditLyricPresenter>();
+            services.AddScoped<IDeleteLyricOutputHandler<IActionResult>, DeleteLyricPresenter>();
             services.AddScoped<IRegisterOutputHandler<IActionResult>, RegisterUserPresenter>();
+            services.AddScoped<IDetailsLyricsOutputHandler<IActionResult>, DetailsLyricsPresenter>();
             services.AddScoped<IAuthenticateOutputHandler<IActionResult>, AuthenticateUserPresenter>();
 
 
@@ -42,11 +58,11 @@
 
         public static IServiceCollection AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
-            var appSettingsSection = configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
+            var appSettingsSection = configuration.GetSection("TokenSettings");
+            services.Configure<TokenSettings>(appSettingsSection);
 
             // configure jwt authentication
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            var appSettings = appSettingsSection.Get<TokenSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
