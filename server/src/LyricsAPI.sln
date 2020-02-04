@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{6128251D-F8A1-4896-91D1-DCAF4EF81FA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation", "Foundation\Foundation.csproj", "{865D1D75-F301-46C4-AE53-B19C4C475723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foundation", "Foundation\Foundation.csproj", "{865D1D75-F301-46C4-AE53-B19C4C475723}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{4FEBECEB-87E1-4269-A3AA-494A83B0C435}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{865D1D75-F301-46C4-AE53-B19C4C475723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{865D1D75-F301-46C4-AE53-B19C4C475723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{865D1D75-F301-46C4-AE53-B19C4C475723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FEBECEB-87E1-4269-A3AA-494A83B0C435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FEBECEB-87E1-4269-A3AA-494A83B0C435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FEBECEB-87E1-4269-A3AA-494A83B0C435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FEBECEB-87E1-4269-A3AA-494A83B0C435}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

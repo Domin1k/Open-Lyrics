@@ -33,7 +33,12 @@
         [AllowAnonymous]
         public async Task<IActionResult> RegisterUser(RegisterUserRequest request)
         {
-            var registerUserInput = new RegisterUserInput(request.FirstName, request.LastName, request.Username, request.Email, request.Password, request.ConfirmPassword);
+            if (request.Password != request.ConfirmPassword)
+            {
+                // TODO use FluentValidation
+                return BadRequest("Password and ConfirmPassword does not match");
+            }
+            var registerUserInput = new RegisterUserInput(request.FirstName, request.LastName, request.Username, request.Email, request.Password);
             await _registerInputHandler.HandleAsync(registerUserInput, _registerOutputHandler);
             return _registerOutputHandler.Result();
         }

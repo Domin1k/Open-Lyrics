@@ -2,7 +2,6 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
-    using Microsoft.Extensions.Options;
     using Persistence;
 
     public class LyricDbContextFactory : IDesignTimeDbContextFactory<LyricsDbContext>
