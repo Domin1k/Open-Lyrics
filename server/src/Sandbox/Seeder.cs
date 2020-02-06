@@ -10,6 +10,7 @@
     using Sandbox.Stubs;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -24,13 +25,17 @@
             var optionsBuilder = new DbContextOptionsBuilder<LyricsDbContext>();
             optionsBuilder.UseSqlServer("server=(LocalDb)\\MSSQLLocalDB; database=LyricsDB; Integrated Security=true");
             db = new LyricsDbContext(optionsBuilder.Options);
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
             SeedUser().GetAwaiter().GetResult();
             using (var reader = new StreamReader(@"C:\Users\klyub\Desktop\Projects\Open-Lyrics\server\src\Sandbox\songdata.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                var records = csv.GetRecords<LyricModel>();
+                var records = csv.GetRecords<LyricModel>().ToList();
                 SeedLyrics(records).GetAwaiter().GetResult();
             }
+            Console.WriteLine("Finished seeding database.");
+            Console.ReadLine();
         }
 
         private static async Task SeedLyrics(IEnumerable<LyricModel> records)
@@ -46,16 +51,26 @@
             var lyricsRepo = new LyricEfRepository(db);
             var usecase = new CreateLyricUseCase<Action>(userRepo, lyricsRepo);
             int counter = 0;
+            int takeCount = 2000;
+            int batchNumber = 0;
             Console.Write("Loading");
-            foreach (var item in records)
+            var sw = new Stopwatch();
+            sw.Start();
+            while (counter <= records.Count())
             {
-                if (counter % 100 == 0)
-                {
-                    Console.Write(".");
-                }
-                await usecase.HandleAsync(new CreateLyricInput { Singer = item.artist, Text = item.text, Title = item.song, AuthorId = author.Id }, new CreateLyricOutputHandlerStub());
-                counter += 1;
+                var lyricsToAdd = records
+                                    .Skip(batchNumber * takeCount)
+                                    .Take(takeCount)
+                                    .Select(item => new CreateLyricInput { Singer = item.artist, Text = item.text, Title = item.song, AuthorId = author.Id });
+
+                await usecase.HandleAsync(lyricsToAdd.ToList(), new CreateLyricOutputHandlerStub());
+                counter += takeCount;
+                batchNumber += 1;
             }
+            
+
+            sw.Stop();
+            Console.WriteLine($"Added 2000 records in {sw.ElapsedMilliseconds}ms");
         }
 
         private static async Task SeedUser()
@@ -65,6 +80,7 @@
                 Console.WriteLine($"User '{Username}' already exists");
                 return;
             }
+
             Console.WriteLine("Seeding User....");
             var repository = new UserEfRepository(db);
             var userUsecase = new RegisterUseCase<Action>(repository);

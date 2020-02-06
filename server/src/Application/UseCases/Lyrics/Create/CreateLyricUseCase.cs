@@ -3,6 +3,8 @@
     using Application.Interfaces.Repositories;
     using Domain.Entities;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class CreateLyricUseCase<T> : ICreateLyricInputHandler<T>
@@ -36,6 +38,27 @@
             {
                 await _lyricRepository.CreateAsync(dbLyric);
                 output.Success(new CreateLyricOutput(dbLyric.Id));
+            }
+            catch (Exception)
+            {
+                output.BadRequest("Creating lyric failed.");
+            }
+        }
+
+        public async Task HandleAsync(IEnumerable<CreateLyricInput> inputs, ICreateLyricOutputHandler<T> output)
+        {
+            var dbLyrics = inputs.Select(input => new Lyric
+            {
+                CreatedOn = DateTime.UtcNow,
+                AuthorId = input.AuthorId,
+                Singer = input.Singer,
+                Text = input.Text,
+                Title = input.Title,
+            });
+            try
+            {
+                await _lyricRepository.CreateManyAsync(dbLyrics);
+                output.Success(new CreateLyricOutput(0));
             }
             catch (Exception)
             {

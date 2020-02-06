@@ -11,6 +11,8 @@
 
         Task CreateAsync(TEntity entity);
 
+        Task CreateManyAsync(IEnumerable<TEntity> entity);
+
         Task UpdateAsync(TEntity entity);
 
         Task DeleteAsync(TEntity entity);

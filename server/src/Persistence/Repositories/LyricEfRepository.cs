@@ -86,5 +86,11 @@
             => await _dbContext
                 .Lyrics
                 .AnyAsync(x => x.Id == id);
+
+        public async Task CreateManyAsync(IEnumerable<Lyric> entity)
+        {
+            _dbContext.Lyrics.AddRange(entity);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

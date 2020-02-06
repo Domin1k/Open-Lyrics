@@ -22,6 +22,12 @@
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task CreateManyAsync(IEnumerable<User> entity)
+        {
+            await _dbContext.Users.AddRangeAsync(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(User entity)
         {
             _dbContext.Entry(entity).State = EntityState.Deleted;
