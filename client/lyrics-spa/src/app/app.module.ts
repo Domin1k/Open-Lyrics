@@ -8,6 +8,8 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 import { UserModule } from './user/user.module';
+import { CustomMaterialModule } from './custom-material.module';
+import { LyricModule } from './lyric/lyric.module';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { UserModule } from './user/user.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    UserModule
+    UserModule,
+    LyricModule,
+    CustomMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
