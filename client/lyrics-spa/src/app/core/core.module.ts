@@ -4,12 +4,14 @@ import { RouterModule } from '@angular/router'
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { CustomMaterialModule } from '../custom-material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavigationComponent

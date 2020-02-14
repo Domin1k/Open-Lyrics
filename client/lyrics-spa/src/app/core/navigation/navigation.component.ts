@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { of } from 'rxjs';
+import {delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navigation',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-
-  constructor() { }
+  searchForm: FormGroup;
+  
+  constructor(private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      searchBar: ['', Validators.required]
+    });
+   }
 
   ngOnInit(): void {
   }
 
+  search(data: any) {
+    
+  }
 }

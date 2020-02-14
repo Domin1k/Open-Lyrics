@@ -8,11 +8,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
 import { DeleteDialogComponent } from './delete/delete-dialog.component';
+import { MyComponent } from './my/my.component';
 
 
 
 @NgModule({
-  declarations: [DetailComponent, CreateComponent, EditComponent, DeleteComponent, DeleteDialogComponent],
+  declarations: [DetailComponent, CreateComponent, EditComponent, DeleteComponent, DeleteDialogComponent, MyComponent],
   imports: [
     CommonModule,
     CustomMaterialModule,

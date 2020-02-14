@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog.component';
 
 @Component({
@@ -11,15 +11,15 @@ import { DeleteDialogComponent } from './delete-dialog.component';
 })
 export class DeleteComponent implements OnInit {
   deleteLyricForm: FormGroup;
-  
+
   constructor(
-      private form: FormBuilder,
-      private route: ActivatedRoute,
-      public dialog: MatDialog) {
+    private form: FormBuilder,
+    private route: ActivatedRoute,
+    public dialog: MatDialog) {
     this.deleteLyricForm = this.form.group({
-     singer: ['Info retrieved from server', Validators.required],
-     text: ['Info retrieved from server', Validators.required],
-     title: ['Info retrieved from server', Validators.required]
+      singer: ['Info retrieved from server', Validators.required],
+      text: ['Info retrieved from server', Validators.required],
+      title: ['Info retrieved from server', Validators.required]
     });
   }
 
@@ -34,7 +34,7 @@ export class DeleteComponent implements OnInit {
       }
       console.log(this.route.snapshot.params.id);
     });
-    
+
   }
 
 }
