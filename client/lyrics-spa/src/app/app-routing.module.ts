@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './modules/home/home.component';
 
 const routes: Routes = [
     { path: "", pathMatch: 'full', component: HomeComponent }

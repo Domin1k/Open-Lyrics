@@ -8,6 +8,7 @@
         <div>
             <a mat-button [routerLink]="'/user/login'"> Login </a>
             <a mat-button [routerLink]="'/user/register'"> Register </a>
+            <a mat-button [routerLink]="'/user/logout'"> Logout </a>
         </div>
         <div>
             <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">

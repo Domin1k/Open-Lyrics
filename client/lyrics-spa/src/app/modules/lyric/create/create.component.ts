@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css', '../../shared/forms.css']
+  styleUrls: ['./create.component.css', '../../../shared/forms.css']
 })
 export class CreateComponent implements OnInit {
   createLyricForm: FormGroup;

@@ -1,0 +1,74 @@
+<mat-card>
+    <mat-card-title>Register</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+            <div>
+                <mat-form-field>
+                    <input type="text" matInput formControlName="firstName" placeholder="First Name" />
+                </mat-form-field>
+                <div *ngIf="f.firstName.errors && (f.firstName.dirty || f.firstName.touched)" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                </div>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input type="text" matInput formControlName="lastName" placeholder="Last Name" />
+                </mat-form-field>
+                <div *ngIf="f.lastName.errors && (f.lastName.dirty || f.lastName.touched)" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </div>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input type="text" matInput formControlName="username" placeholder="Username" />
+                </mat-form-field>
+                <div *ngIf="f.username.errors && (f.username.dirty || f.username.touched)" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Username is required</div>
+                    <div *ngIf="f.username.errors.minlength">Username must be at least 2 characters</div>
+                </div>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input type="email" matInput formControlName="email" placeholder="Email" />
+                </mat-form-field>
+                <div *ngIf="f.email.errors && (f.email.dirty || f.email.touched)" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter your password</mat-label>
+                    <input formControlName="password" placeholder="Password" matInput [type]="hidenPassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidenPassword = !hidenPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidenPassword">
+                        <mat-icon>{{hidenPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div *ngIf="f.password.errors && (f.password.dirty || f.password.touched)" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                </div>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter your confirm password</mat-label>
+                    <input formControlName="confirmPassword" placeholder="Confirm Password" matInput [type]="hidenConfirmPassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidenConfirmPassword = !hidenConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidenConfirmPassword">
+                        <mat-icon>{{hidenConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div *ngIf="f.confirmPassword.errors && (f.confirmPassword.dirty || f.confirmPassword.touched)" class="invalid-feedback">
+                    <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                    <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                </div>
+            </div>
+
+            <div class="button">
+                <button [disabled]="registerForm.invalid" type="submit" mat-button>
+                    <mat-icon>create</mat-icon> Register
+                </button>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

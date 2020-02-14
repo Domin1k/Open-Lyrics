@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'
 
 import { NavigationComponent } from './navigation/navigation.component';
-import { CustomMaterialModule } from '../custom-material.module';
+import { CustomMaterialModule } from '../modules/custom-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
