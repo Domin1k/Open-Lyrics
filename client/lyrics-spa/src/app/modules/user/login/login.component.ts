@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.userSvc.login(data.username, data.password)
       .subscribe((res) => {
         console.log(res);
-        this.router.navigate['/user/profile']
+        this.router.navigate(['/'])
       });
   }
 }

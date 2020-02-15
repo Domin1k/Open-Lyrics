@@ -6,9 +6,9 @@
         <h1 [routerLink]="'/'">Open Lyrics</h1>
         <span class="menu-spacer"></span>
         <div>
-            <a mat-button [routerLink]="'/user/login'"> Login </a>
-            <a mat-button [routerLink]="'/user/register'"> Register </a>
-            <a mat-button [routerLink]="'/user/logout'"> Logout </a>
+            <a mat-button *ngIf="!isLoggedIn" [routerLink]="'/user/login'"> Login </a>
+            <a mat-button *ngIf="!isLoggedIn" [routerLink]="'/user/register'"> Register </a>
+            <a mat-button *ngIf="isLoggedIn" [routerLink]="'/user/logout'"> Logout </a>
         </div>
         <div>
             <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">
@@ -25,7 +25,7 @@
 
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
-        <mat-nav-list>
+        <mat-nav-list *ngIf="isLoggedIn">
             <a mat-list-item [routerLink]="'/user/profile'"> Profile </a>
             <a mat-list-item [routerLink]="'/lyrics/create'"> Create Lyric </a>
             <a mat-list-item [routerLink]="'/lyrics/my'"> My Lyrics </a>

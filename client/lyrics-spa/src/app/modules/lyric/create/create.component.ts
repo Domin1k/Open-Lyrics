@@ -8,18 +8,19 @@ import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from
 })
 export class CreateComponent implements OnInit {
   createLyricForm: FormGroup;
-  error: string;
   
   constructor(private form: FormBuilder) {
     this.createLyricForm = this.form.group({
-     singer: ['', Validators.required],
-     text: ['', Validators.required],
-     title: ['', Validators.required]
+     singer: ['', [Validators.required, Validators.minLength(2)]],
+     text: ['', [Validators.required, Validators.minLength(20)]],
+     title: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
   ngOnInit() {
   }
+
+  get f() { return this.createLyricForm.controls;}
 
   create(formData: AbstractControl) {
     console.log(formData)

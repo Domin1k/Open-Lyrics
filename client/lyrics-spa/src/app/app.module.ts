@@ -39,7 +39,7 @@ import { InputValidationDirective } from './shared/directives/input-validation.d
       useClass: TokenInterceptor,
       multi: true
     },
-    UserService
+    UserService,
   ],
   bootstrap: [AppComponent]
 })

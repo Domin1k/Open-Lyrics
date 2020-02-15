@@ -9,14 +9,18 @@ import { UserService } from '../services/user.service';
 })
 export class NavigationComponent implements OnInit {
   searchForm: FormGroup;
-  
-  constructor(private fb: FormBuilder) {
+
+  constructor(private fb: FormBuilder, private userSvc: UserService) {
     this.searchForm = this.fb.group({
       searchBar: ['', Validators.required]
     });
    }
 
   ngOnInit(): void {
+  }
+
+  get isLoggedIn() {
+    return this.userSvc.isLoggedIn();
   }
 
   search(data: any) {

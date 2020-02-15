@@ -13,10 +13,6 @@ import { Observable } from 'rxjs';
 export class UserService {
   private usersUrl: string;
 
-  // get isLoggedIn(): boolean {
-  //   return moment().isBefore(this.getExpiration());
-  // }
-
   constructor(private http: HttpClient) {
     this.usersUrl = `${environment.apiUrl}/api/users`;
    }
@@ -33,6 +29,10 @@ export class UserService {
   logout() {
     return this.http.post(`${this.usersUrl}/logout`, [])
        .pipe(tap(() => this.unsetSession()));
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('id_token') !== null;
   }
 
   private setSession(authResult: UserLoginResponseModel) {
