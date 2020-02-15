@@ -13,6 +13,7 @@
     using Foundation.Services;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Distributed;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,7 @@
     using System.Threading.Tasks;
     using WebAPI.Features.Lyric.Presenters;
     using WebAPI.Features.User.Presenters;
+    using WebAPI.Shared;
 
     public static class ServiceCollectionExtensions
     {
@@ -75,14 +77,18 @@
                 {
                     OnTokenValidated = context =>
                     {
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-                        var userId = int.Parse(context.Principal.Identity.Name);
-                        // TODO
-                        var user = userService.GetAsync(userId).GetAwaiter().GetResult();
-                        if (user == null)
+                        var cacheService = context.HttpContext.RequestServices.GetRequiredService<IDistributedCache>();
+                        var userToken = cacheService.GetString($"{Constants.JwtTokenKey}{context.Principal.Identity.Name}");
+                        
+                        if (userToken != null)
                         {
-                            // return unauthorized if user no longer exists
-                            context.Fail("Unauthorized");
+                            // if userToken is not null it means token is blacklisted. Return unauthorized
+                            // format of Authorization header should be Bearer xxxxxx
+                            // TODO this needs to be refactored
+                            if (context.Request.Headers["Authorization"][0].Equals($"Bearer {userToken}"))
+                            {
+                                context.Fail("Unauthorized");
+                            }
                         }
                         return Task.CompletedTask;
                     }

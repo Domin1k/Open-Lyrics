@@ -19,8 +19,8 @@
         }
         public async Task HandleAsync(CreateLyricInput input, ICreateLyricOutputHandler<T> output)
         {
-            var authorExists = await _userRepository.ExistsAsync(input.AuthorId);
-            if (!authorExists)
+            var author = await _userRepository.GetByUsernameAsync(input.AuthorName);
+            if (author == null)
             {
                 output.BadRequest("The given author does not exist");
                 return;
@@ -29,7 +29,7 @@
             var dbLyric = new Lyric
             {
                 CreatedOn = DateTime.UtcNow,
-                AuthorId = input.AuthorId,
+                AuthorId = author.Id,
                 Singer = input.Singer,
                 Text = input.Text,
                 Title = input.Title,
@@ -50,7 +50,7 @@
             var dbLyrics = inputs.Select(input => new Lyric
             {
                 CreatedOn = DateTime.UtcNow,
-                AuthorId = input.AuthorId,
+               // AuthorId = author.Id,
                 Singer = input.Singer,
                 Text = input.Text,
                 Title = input.Title,

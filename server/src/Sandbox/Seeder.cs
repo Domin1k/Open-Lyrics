@@ -61,7 +61,7 @@
                 var lyricsToAdd = records
                                     .Skip(batchNumber * takeCount)
                                     .Take(takeCount)
-                                    .Select(item => new CreateLyricInput { Singer = item.artist, Text = item.text, Title = item.song, AuthorId = author.Id });
+                                    .Select(item => new CreateLyricInput { Singer = item.artist, Text = item.text, Title = item.song, AuthorName = author.Username });
 
                 await usecase.HandleAsync(lyricsToAdd.ToList(), new CreateLyricOutputHandlerStub());
                 counter += takeCount;

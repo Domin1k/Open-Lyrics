@@ -27,11 +27,11 @@ import { InputValidationDirective } from './shared/directives/input-validation.d
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CustomMaterialModule,
     AppRoutingModule,
     CoreModule,
     UserModule,
     LyricModule,
-    CustomMaterialModule
   ],
   providers: [
     {

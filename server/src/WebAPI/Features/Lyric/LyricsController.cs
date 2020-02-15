@@ -54,7 +54,7 @@
         public async Task<IActionResult> Create(CreateLyricRequest request)
         {
             await _createLyricInputHandler.HandleAsync(
-                new CreateLyricInput { AuthorId = request.AuthorId, Singer = request.Singer, Text = request.Text, Title = request.Title },
+                new CreateLyricInput { AuthorName = this.User.Identity.Name, Singer = request.Singer, Text = request.Text, Title = request.Title },
                 _createLyricOutputHandler);
             return _createLyricOutputHandler.Result();
         }
@@ -85,7 +85,7 @@
         [HttpGet("all")]
         public async Task<IActionResult> All([FromQuery]AllLyricsRequest request)
         {
-            await _allLyricsInputHandler.HandleAsync(new AllLyricsInput { Page = request.Page, PageSize = request.PageSize }, _allLyricsOutputHandler);
+            await _allLyricsInputHandler.HandleAsync(new AllLyricsInput { SearchTerm = request.SearchTerm, Page = request.Page, PageSize = request.PageSize }, _allLyricsOutputHandler);
             return _allLyricsOutputHandler.Result();
         }
     }

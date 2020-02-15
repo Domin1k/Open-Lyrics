@@ -8,6 +8,6 @@
 
         public string Singer { get; set; }
 
-        public int AuthorId { get; set; }
+        public string AuthorName { get; set; }
     }
 }

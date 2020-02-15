@@ -30,7 +30,7 @@
                 output.BadRequest("User credentials does not match");
             }   
 
-            var token = _tokenService.GenerateJwtToken(user.Id.ToString());
+            var token = _tokenService.GenerateJwtToken(user.Username.ToString());
 
             output.Success(new AuthenticateUserOutput(user.Id, user.Username, token));
         }

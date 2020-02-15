@@ -3,8 +3,10 @@
     using Application.Interfaces.Repositories;
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     public class LyricEfRepository : ILyricRepository
@@ -92,5 +94,23 @@
             _dbContext.Lyrics.AddRange(entity);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Lyric>> GetAllQueryAsync(Expression<Func<Lyric, bool>> query, int page, int pageSize)
+            => await _dbContext
+                .Lyrics
+                .Where(query)
+                .Skip(page - 1 * (page * pageSize))
+                .Take(pageSize)
+                .AsNoTracking()
+                .Select(x => new Lyric
+                {
+                    Id = x.Id,
+                    Singer = x.Singer,
+                    Text = x.Text,
+                    Title = x.Title,
+                    AuthorId = x.AuthorId,
+                    Author = x.Author
+                })
+                .ToListAsync();
     }
 }
