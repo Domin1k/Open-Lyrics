@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserLoginResponseModel } from 'src/app/shared/models/user/user-login-response.model';
 import { HttpClient } from '@angular/common/http';
-import * as moment from "moment";
-import { tap, shareReplay } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { environment} from '../../../environments/environment';
 import { UserRegisterRequestModel } from 'src/app/shared/models/user/user-register-request.model';
 import { Observable } from 'rxjs';

@@ -13,15 +13,14 @@ import { LyricModule } from './modules/lyric/lyric.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/auth/token-interceptor';
 import { UserService } from './core/services/user.service';
-import { InputValidationDirective } from './shared/directives/input-validation.directive';
+import { LyricService } from './core/services/lyric.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FooterComponent,
-    InputValidationDirective
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +39,7 @@ import { InputValidationDirective } from './shared/directives/input-validation.d
       multi: true
     },
     UserService,
+    LyricService
   ],
   bootstrap: [AppComponent]
 })
