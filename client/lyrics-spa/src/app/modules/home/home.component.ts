@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
+import { LyricResponseModel } from 'src/app/shared/models/lyric/lyric-response.model';
+import { LyricService } from 'src/app/core/services/lyric.service';
+import { AllLyricsRequestModel } from 'src/app/shared/models/lyric/all-lyrics-request.model';
+import { AllLyricsResponseModel } from 'src/app/shared/models/lyric/all-lyrics-response.model';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -7,24 +13,24 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  length = 100;
+  length: number;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  data: any[];
-
-  // MatPaginator Output
-  pageEvent: PageEvent;
-
+  lyricsData: LyricResponseModel[];
   
-  constructor() {
-    this.data = [
-      { name: 'Eminem Loose yourself', info: 'Uploaded by admin'},
-      { name: 'Ariana grander 7 rings', info: 'Uploaded by admin'},
-      { name: 'AC/DC - highway to hell', info: 'Uploaded by admin'},
-      { name: 'The pretty reckless - Hit me like a man', info: 'Uploaded by admin'},
-    ]
-   }
+  constructor(private ar: ActivatedRoute, private lyricSvc: LyricService) { }
 
   ngOnInit() {
+    this.ar.data.subscribe(res => {
+      this.lyricsData = res.allLyrics.lyrics;
+      this.length = res.allLyrics.total;
+    })
+  }
+
+  getAll(pageEvent?: PageEvent) {
+    this.lyricSvc.all(new AllLyricsRequestModel('', pageEvent.pageIndex, pageEvent.pageSize, false))
+      .subscribe((res: AllLyricsResponseModel) => {
+        this.lyricsData = res.lyrics;
+      })
   }
 }

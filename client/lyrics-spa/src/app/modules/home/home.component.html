@@ -1,19 +1,18 @@
 <div class="all-lyrics">
     <h3>Song lyrics</h3>
+    <mat-spinner class="loading-spinner" *ngIf="!length"></mat-spinner>
     <mat-divider></mat-divider>
     <mat-nav-list>
-        <mat-list-item *ngFor="let link of data">
-            <a matLine [href]="" target="_blank">
+        <mat-list-item *ngFor="let lyric of lyricsData">
+            <a matLine [routerLink]="['lyrics/detail/', lyric.id]">
                 <mat-icon class="icon-angular"></mat-icon>
-                <span class="link-caption">{{link.name}}</span>
+                <span class="link-caption">{{lyric.singer}} - {{lyric.title}}</span>
             </a>
-            <h5 matline> {{link.info}} </h5>
+            <h5 matline> Uploaded by {{lyric.authorName}} </h5>
         </mat-list-item>
     </mat-nav-list>
+
     <mat-divider></mat-divider>
 
-    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-    </mat-paginator>
-
-    {{pageEvent | json}}
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getAll($event)"></mat-paginator>
 </div>

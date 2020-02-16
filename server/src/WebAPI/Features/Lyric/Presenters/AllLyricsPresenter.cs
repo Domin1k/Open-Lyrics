@@ -2,7 +2,6 @@
 {
     using Application.UseCases.Lyrics.GetAll;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
 
     public class AllLyricsPresenter : IAllLyricsOutputHandler<IActionResult>
     {
@@ -16,6 +15,6 @@
                 ErrorMessage = msg
             });
 
-        public void Success(IEnumerable<AllLyricsOutput> output) => _result = new OkObjectResult(output);
+        public void Success(AllLyricsOutput output) => _result = new OkObjectResult(output);
     }
 }

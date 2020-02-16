@@ -25,9 +25,9 @@
             {
                 lyrics = await _lyricRepository.GetAllQueryAsync(x => x.Singer.Contains(input.SearchTerm), input.Page, input.PageSize);
             }
+           var result = lyrics.Select(x => new AllLyricOutput(x.Id, x.Text, x.Title, x.Singer, x.AuthorId, x.Author.Username));
             
-            var result = lyrics.Select(x => new AllLyricsOutput(x.Id, x.Text, x.Title, x.Singer, x.AuthorId, x.Author.Username));
-            output.Success(result.ToList());
+            output.Success(new AllLyricsOutput(result, input.IncludeCount ? await _lyricRepository.CountAsync() : 0));
         }
     }
 }

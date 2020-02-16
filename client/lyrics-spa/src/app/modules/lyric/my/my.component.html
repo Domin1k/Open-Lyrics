@@ -5,10 +5,7 @@
     </div>
 </mat-list>
 
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-</mat-paginator>
-
-{{pageEvent | json}}
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
 
 <div *ngIf="currentDetails">
     <app-detail></app-detail>

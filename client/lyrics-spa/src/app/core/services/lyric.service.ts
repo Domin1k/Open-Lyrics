@@ -4,8 +4,8 @@ import { CreateLyricRequestModel } from 'src/app/shared/models/lyric/create-lyri
 import { HttpClient } from '@angular/common/http';
 import { EditLyricRequestModel } from 'src/app/shared/models/lyric/edit-lyric-request.model';
 import { LyricDetailsResponseModel } from 'src/app/shared/models/lyric/details-lyric-response.model';
-import { AllLyricsResponseModel } from 'src/app/shared/models/lyric/all-lyrics-response.model';
 import { AllLyricsRequestModel } from 'src/app/shared/models/lyric/all-lyrics-request.model';
+import { AllLyricsResponseModel } from 'src/app/shared/models/lyric/all-lyrics-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,7 @@ export class LyricService {
   }
 
   all(request: AllLyricsRequestModel) {
-    return this.http.get<AllLyricsResponseModel[]>(`${this.lyricBaseUrl}/all?searchTerm=${request.searchTerm}&page=${request.page}&pageSize=${request.pageSize}`)
+    const url = `${this.lyricBaseUrl}/all?searchTerm=${request.searchTerm}&page=${request.page}&pageSize=${request.pageSize}&includeCount=${request.includeCount}`;
+    return this.http.get<AllLyricsResponseModel>(url);
   }
 }

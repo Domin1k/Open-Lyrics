@@ -1,4 +1,4 @@
-export class LyricDetailsResponseModel {
+export class LyricResponseModel {
     id: number;
     text: string;
     singer: string;

@@ -1,27 +1,17 @@
 ﻿namespace Application.UseCases.Lyrics.GetAll
 {
+    using System.Collections.Generic;
+
     public class AllLyricsOutput
     {
-        public AllLyricsOutput(int id, string text, string title, string singer, int authorId, string authorName)
+        public AllLyricsOutput(IEnumerable<AllLyricOutput> lyrics, int total = 0)
         {
-            Id = id;
-            Text = text;
-            Title = title;
-            Singer = singer;
-            AuthorId = authorId;
-            AuthorName = authorName;
+            Total = total;
+            Lyrics = lyrics;
         }
 
-        public int Id { get; }
+        public int Total { get; }
 
-        public string Text { get; }
-
-        public string Title { get; }
-
-        public string Singer { get; }
-
-        public int AuthorId { get; }
-
-        public string AuthorName { get; }
+        public IEnumerable<AllLyricOutput> Lyrics { get; }
     }
 }

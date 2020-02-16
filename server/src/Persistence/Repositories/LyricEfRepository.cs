@@ -18,6 +18,8 @@
             _dbContext = dbContext;
         }
 
+        public async Task<int> CountAsync() => await _dbContext.Lyrics.CountAsync();
+
         public async Task UpdateAsync(User entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
@@ -50,6 +52,15 @@
         public async Task<IEnumerable<Lyric>> GetAllAsync()
             => await _dbContext
                 .Lyrics
+                .Select(x => new Lyric
+                {
+                    Id = x.Id,
+                    Singer = x.Singer,
+                    Text = x.Text,
+                    Title = x.Title,
+                    AuthorId = x.AuthorId,
+                    Author = x.Author
+                })
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -58,19 +69,21 @@
                 .Lyrics
                 .AsQueryable()
                 .AsNoTracking()
+                .Include(x => x.Author)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task UpdateAsync(Lyric entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            
+
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Lyric>> GetAllNonDeletedAsync(int page, int pageSize)
             => await _dbContext
                 .Lyrics
-                .Skip(page - 1 * (page * pageSize))
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip(pageSize * (page))
                 .Take(pageSize)
                 .AsNoTracking()
                 .Select(x => new Lyric
@@ -99,7 +112,7 @@
             => await _dbContext
                 .Lyrics
                 .Where(query)
-                .Skip(page - 1 * (page * pageSize))
+                .Skip(pageSize * (page))
                 .Take(pageSize)
                 .AsNoTracking()
                 .Select(x => new Lyric

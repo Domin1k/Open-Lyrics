@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/auth/token-interceptor';
 import { UserService } from './core/services/user.service';
 import { LyricService } from './core/services/lyric.service';
+import { AllLyricsResolver } from './core/resolvers/all-lyrics.resolver';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { LyricService } from './core/services/lyric.service';
       multi: true
     },
     UserService,
-    LyricService
+    LyricService,
+    AllLyricsResolver
   ],
   bootstrap: [AppComponent]
 })

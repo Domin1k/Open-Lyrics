@@ -1,8 +1,6 @@
-export interface AllLyricsResponseModel {
-    id: number;
-    text: string;
-    singer: string;
-    title: string;
-    authorId: number;
-    authorName: string;
+import { LyricResponseModel } from './lyric-response.model';
+
+export class AllLyricsResponseModel {
+    total: number;
+    lyrics: LyricResponseModel[];
 }

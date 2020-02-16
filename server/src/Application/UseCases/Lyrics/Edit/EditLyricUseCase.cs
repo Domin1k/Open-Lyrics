@@ -16,8 +16,8 @@
         }
         public async Task HandleAsync(EditLyricInput input, IEditLyricOutputHandler<T> output)
         {
-            var authorExists = await _userRepository.ExistsAsync(input.AuthorId);
-            if (!authorExists)
+            var author = await _userRepository.GetByUsernameAsync(input.AuthorUsername);
+            if (author == null)
             {
                 output.BadRequest("The given author does not exist");
                 return;
@@ -27,6 +27,11 @@
             if (dbLyric == null)
             {
                 output.BadRequest("The given lyric does not exist");
+                return;
+            }
+            if (dbLyric.AuthorId != author.Id)
+            {
+                output.BadRequest("The given lyric does not belong to you");
                 return;
             }
             try

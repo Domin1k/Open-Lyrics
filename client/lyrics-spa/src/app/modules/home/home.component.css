@@ -5,3 +5,7 @@
 .all-lyrics h3 {
     text-align: center;
 }
+
+.loading-spinner {
+    margin-left: 50%;
+}

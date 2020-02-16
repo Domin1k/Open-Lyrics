@@ -9,6 +9,7 @@ import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
 import { DeleteDialogComponent } from './delete/delete-dialog.component';
 import { MyComponent } from './my/my.component';
+import { DetailLyricResolver } from 'src/app/core/resolvers/detail-lyric.resolver';
 
 
 
@@ -20,6 +21,7 @@ import { MyComponent } from './my/my.component';
     LyricRoutingModule,
     ReactiveFormsModule
   ],
+  providers: [DetailLyricResolver],
   entryComponents: [DeleteDialogComponent]
 })
 export class LyricModule { }

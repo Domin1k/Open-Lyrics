@@ -63,7 +63,7 @@
         public async Task<IActionResult> Edit(int id, EditLyricRequest request)
         {
             await _editLyricInputHandler.HandleAsync(
-                new EditLyricInput { Id = id, AuthorId = request.AuthorId, Singer = request.Singer, Text = request.Text, Title = request.Title },
+                new EditLyricInput { Id = id, AuthorUsername = User.Identity.Name, Singer = request.Singer, Text = request.Text, Title = request.Title },
                 _editLyricOutputHandler);
             return _editLyricOutputHandler.Result();
         }
@@ -75,7 +75,8 @@
             return _deleteLyricOutputHandler.Result();
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("details/{id:int}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             await _detailsLyricInputHandler.HandleAsync(new DetailsLyricsInput { Id = id }, _detailsLyricOutputHandler);
@@ -83,9 +84,17 @@
         }
 
         [HttpGet("all")]
+        [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllLyricsRequest request)
         {
-            await _allLyricsInputHandler.HandleAsync(new AllLyricsInput { SearchTerm = request.SearchTerm, Page = request.Page, PageSize = request.PageSize }, _allLyricsOutputHandler);
+            await _allLyricsInputHandler.HandleAsync(new AllLyricsInput
+            {
+                IncludeCount = request.IncludeCount,
+                SearchTerm = request.SearchTerm,
+                Page = request.Page > 0 ? request.Page : 0,
+                PageSize = request.PageSize > 0 ? request.PageSize : 0
+            },
+            _allLyricsOutputHandler);
             return _allLyricsOutputHandler.Result();
         }
     }

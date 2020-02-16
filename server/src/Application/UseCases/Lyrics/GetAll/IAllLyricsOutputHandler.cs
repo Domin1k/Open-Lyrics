@@ -6,7 +6,7 @@ namespace Application.UseCases.Lyrics.GetAll
     {
         T Result();
 
-        void Success(IEnumerable<AllLyricsOutput> output);
+        void Success(AllLyricsOutput output);
 
         void BadRequest(string msg);
 
