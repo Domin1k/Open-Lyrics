@@ -24,3 +24,9 @@ Server side API written in .NET Core and client side SPA application written in 
 3. run ng serve 
 4. App should be up and running on http://localhost:4200/
 
+
+## Architecture
+### Architecture applied for BE app is the well known - CleanArchitecture
+### Architecture applied for FE app is "multiple-module architecture" (https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de65ec7)
+
+
