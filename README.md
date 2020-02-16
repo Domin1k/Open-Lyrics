@@ -15,16 +15,8 @@ Server side API written in .NET Core and client side SPA application written in 
 5. Should be up and running on https://localhost:5001
 
 ### Prerequisites to run the Angular app
-     _                      _                 ____ _     ___
-    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
-   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
-  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
- /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
-                |___/
-
-
-Angular CLI: 8.3.24
-Node: 12.14.1
+- Angular CLI: 8.3.24
+- Node: 12.14.1
 
 #### Steps
 1. Go to client\lyrics-spa
