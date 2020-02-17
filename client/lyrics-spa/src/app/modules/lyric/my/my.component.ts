@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material';
+import { LyricResponseModel } from 'src/app/shared/models/lyric/lyric-response.model';
+import { ActivatedRoute } from '@angular/router';
+import { LyricService } from 'src/app/core/services/lyric.service';
+import { MyLyricsRequestModel } from 'src/app/shared/models/lyric/my-lyrics-request.model';
+import { MyLyricsResponseModel } from 'src/app/shared/models/lyric/my-lyrics-response.model';
+import { LyricDetailsResponseModel } from 'src/app/shared/models/lyric/details-lyric-response.model';
 
 @Component({
   selector: 'app-my',
@@ -7,34 +13,36 @@ import { PageEvent } from '@angular/material';
   styleUrls: ['./my.component.css']
 })
 export class MyComponent implements OnInit {
-  length = 100;
+  length: number;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  data: any[];
-  currentDetails: any;
+  lyricsData: LyricResponseModel[];
+  currentDetails: LyricDetailsResponseModel;
 
-  // MatPaginator Output
-  pageEvent: PageEvent;
+  constructor(private ar: ActivatedRoute, private lyricSvc: LyricService) { }
 
-  
-  constructor() {
-    this.data = [
-      { id: 1, name: 'Eminem Loose yourself'},
-      { id: 2, name: 'Ariana grander 7 rings'},
-      { id: 3, name: 'AC/DC - highway to hell'},
-      { id: 4, name: 'The pretty reckless - Hit me like a man'},
-    ]
-   }
+  ngOnInit() {
+    this.ar.data.subscribe(res => {
+      this.lyricsData = res.myLyrics.lyrics;
+      this.length = res.myLyrics.total;
+    })
+  }
 
-   ngOnInit(){}
+  getMy(pageEvent?: PageEvent) {
+    this.lyricSvc.my(new MyLyricsRequestModel(pageEvent.pageIndex, pageEvent.pageSize, false))
+      .subscribe((res: MyLyricsResponseModel) => {
+        this.lyricsData = res.lyrics;
+      })
+  }
 
-   details(id: number) {
-     this.currentDetails = {
-       id: 1,
-       singer: 'Eminem',
-       title: 'Rap God',
-       text: 'Very long text,Very long text,Very long text,Very long text,Very long text,Very long text,Very long text,Very long text,Very long text',
-       author: 'Admin'
-     }
+   details(lyric: LyricResponseModel) {
+    this.currentDetails = {
+      id: lyric.id,
+      text: lyric.text,
+      authorName: lyric.authorName,
+      singer: lyric.singer,
+      title: lyric.title,
+      authorId: lyric.authorId
+    };
    }
 }

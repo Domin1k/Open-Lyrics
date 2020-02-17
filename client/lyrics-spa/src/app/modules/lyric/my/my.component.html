@@ -1,14 +1,24 @@
-<mat-list>
-    <div *ngFor="let item of data">
-        <mat-list-item (click)="details(item.id)">{{item.name}}</mat-list-item>
-        <mat-divider></mat-divider>
-    </div>
-</mat-list>
+<div>
+    <h3>My lyrics</h3>
+    <mat-spinner class="loading-spinner" *ngIf="!length"></mat-spinner>
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+        <mat-list-item *ngFor="let lyric of lyricsData">
+            <button type="button" matLine (click)="details(lyric)">
+                <mat-icon class="icon-angular"></mat-icon>
+                <span class="link-caption">{{lyric.singer}} - {{lyric.title}}</span>
+            </button>
+            <h5 matline> Uploaded by {{lyric.authorName}} </h5>
+        </mat-list-item>
+    </mat-nav-list>
 
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
+    <mat-divider></mat-divider>
+
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getMy($event)"></mat-paginator>
+</div>
 
 <div *ngIf="currentDetails">
-    <app-detail></app-detail>
+    <app-detail [lyric]="currentDetails"></app-detail>
     <button mat-raised-button [routerLink]="['/lyrics/edit', currentDetails.id]">
         <mat-icon>create</mat-icon> Edit
     </button>

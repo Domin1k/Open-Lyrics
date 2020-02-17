@@ -12,6 +12,6 @@ export class AllLyricsResolver implements Resolve<AllLyricsResponseModel> {
   constructor(private lyricSvc: LyricService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AllLyricsResponseModel> {
-    return this.lyricSvc.all(new AllLyricsRequestModel('', 0, 10, true));
+    return this.lyricSvc.all(new AllLyricsRequestModel(route.queryParams.searchTerm, 0, 10, true));
   }
 }

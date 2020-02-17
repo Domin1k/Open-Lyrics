@@ -7,6 +7,7 @@ const routes: Routes = [
         path: "",
         pathMatch: 'full',
         component: HomeComponent,
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
         resolve: {
             allLyrics: AllLyricsResolver
         }

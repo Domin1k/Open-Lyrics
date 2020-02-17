@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { LyricResponseModel } from 'src/app/shared/models/lyric/lyric-response.model';
 import { LyricService } from 'src/app/core/services/lyric.service';
 import { AllLyricsRequestModel } from 'src/app/shared/models/lyric/all-lyrics-request.model';
 import { AllLyricsResponseModel } from 'src/app/shared/models/lyric/all-lyrics-response.model';
-import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +16,7 @@ export class HomeComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   lyricsData: LyricResponseModel[];
+  @Input() test: AllLyricsResponseModel;
   
   constructor(private ar: ActivatedRoute, private lyricSvc: LyricService) { }
 

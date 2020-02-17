@@ -18,12 +18,12 @@ export class RegisterComponent implements OnInit {
 
   constructor(private form: FormBuilder, private userSvc: UserService, private router: Router) {
     this.registerForm = this.form.group({
-      firstName: ['Kris', [Validators.required, Validators.minLength(4)]],
-      lastName: ['Lyubenov', [Validators.required, Validators.minLength(4)]],
-      username: ['admin', [Validators.required, Validators.minLength(2)]],
-      password: ['123123', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['123123', [Validators.required]],
-      email: ['admin@mysite.com', [Validators.required, , Validators.email]]
+      firstName: ['', [Validators.required, Validators.minLength(4)]],
+      lastName: ['', [Validators.required, Validators.minLength(4)]],
+      username: ['', [Validators.required, Validators.minLength(2)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+      email: ['', [Validators.required, , Validators.email]]
     },
       {
         validator: MustMatch('password', 'confirmPassword')
@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
   register(data) {
     const user: UserRegisterRequestModel = data as UserRegisterRequestModel;
     this.userSvc.register(user).subscribe((res) => {
-      console.log(`API returned -> ${res}`);
       this.router.navigate(['/user/login', data]);
     });
   }
