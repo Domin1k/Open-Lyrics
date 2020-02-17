@@ -8,7 +8,7 @@
 
     public interface ILyricRepository : IRepository<int, Lyric>
     {
-        Task<int> CountAsync();
+        Task<int> CountAsync(Expression<Func<Lyric, bool>> query = null);
         Task<IEnumerable<Lyric>> GetAllNonDeletedAsync(int page, int pageSize);
         Task<IEnumerable<Lyric>> GetAllQueryAsync(Expression<Func<Lyric, bool>> query, int page, int pageSize);
     }

@@ -1,7 +1,7 @@
-<mat-card *ngIf="editLyricForm">
+<mat-card *ngIf="editLyricForm" ngClass="custom-form">
     <mat-card-title>Edit Lyric</mat-card-title>
     <mat-card-content>
-        <form [formGroup]="editLyricForm" (ngSubmit)="edit(editLyricForm.value)">
+        <form ngClass="lyric-form" [formGroup]="editLyricForm" (ngSubmit)="edit(editLyricForm.value)">
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Song's singer *</mat-label>

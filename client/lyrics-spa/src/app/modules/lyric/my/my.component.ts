@@ -6,7 +6,6 @@ import { LyricService } from 'src/app/core/services/lyric.service';
 import { MyLyricsRequestModel } from 'src/app/shared/models/lyric/my-lyrics-request.model';
 import { MyLyricsResponseModel } from 'src/app/shared/models/lyric/my-lyrics-response.model';
 import { LyricDetailsResponseModel } from 'src/app/shared/models/lyric/details-lyric-response.model';
-import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my',
@@ -32,9 +31,7 @@ export class MyComponent implements OnInit {
   getMy(pageEvent?: PageEvent) {
     this.lyricSvc.my(new MyLyricsRequestModel(pageEvent.pageIndex, pageEvent.pageSize, false))
       .subscribe((res: MyLyricsResponseModel) => {
-        console.log(res);
         this.lyricsData = res.lyrics;
-        this.length = res.total;
       })
   }
 

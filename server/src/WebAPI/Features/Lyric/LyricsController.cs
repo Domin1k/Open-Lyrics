@@ -5,6 +5,7 @@
     using Application.UseCases.Lyrics.Details;
     using Application.UseCases.Lyrics.Edit;
     using Application.UseCases.Lyrics.GetAll;
+    using Application.UseCases.Lyrics.My;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -24,6 +25,8 @@
         private readonly IDetailsLyricsOutputHandler<IActionResult> _detailsLyricOutputHandler;
         private readonly IAllLyricsInputHandler<IActionResult> _allLyricsInputHandler;
         private readonly IAllLyricsOutputHandler<IActionResult> _allLyricsOutputHandler;
+        private readonly IMyLyricsInputHandler<IActionResult> _myLyricsInputHandler;
+        private readonly IMyLyricsOutputHandler<IActionResult> _myLyricsOutputHandler;
 
         public LyricsController(
             ICreateLyricInputHandler<IActionResult> createLyricInputHandler,
@@ -35,7 +38,9 @@
             IDetailsLyricsInputHandler<IActionResult> detailsLyricInputHandler,
             IDetailsLyricsOutputHandler<IActionResult> detailsLyricOutputHandler,
             IAllLyricsInputHandler<IActionResult> allLyricsInputHandler,
-            IAllLyricsOutputHandler<IActionResult> allLyricsOutputHandler)
+            IAllLyricsOutputHandler<IActionResult> allLyricsOutputHandler,
+            IMyLyricsInputHandler<IActionResult> myLyricsInputHandler,
+            IMyLyricsOutputHandler<IActionResult> myLyricsOutputHandler)
         {
             _createLyricInputHandler = createLyricInputHandler;
             _createLyricOutputHandler = createLyricOutputHandler;
@@ -47,6 +52,8 @@
             _detailsLyricOutputHandler = detailsLyricOutputHandler;
             _allLyricsInputHandler = allLyricsInputHandler;
             _allLyricsOutputHandler = allLyricsOutputHandler;
+            _myLyricsInputHandler = myLyricsInputHandler;
+            _myLyricsOutputHandler = myLyricsOutputHandler;
         }
 
 
@@ -59,7 +66,7 @@
             return _createLyricOutputHandler.Result();
         }
 
-        [HttpPost("edit/{id:int}")]
+        [HttpPut("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id, EditLyricRequest request)
         {
             await _editLyricInputHandler.HandleAsync(
@@ -96,6 +103,20 @@
             },
             _allLyricsOutputHandler);
             return _allLyricsOutputHandler.Result();
+        }
+
+        [HttpGet("my")]
+        public async Task<IActionResult> My([FromQuery]MyLyricsRequest request)
+        {
+            await _myLyricsInputHandler.HandleAsync(new MyLyricsInput
+            {
+                IncludeCount = request.IncludeCount,
+                AuthorUsername = User.Identity.Name,
+                Page = request.Page > 0 ? request.Page : 0,
+                PageSize = request.PageSize > 0 ? request.PageSize : 0
+            },
+            _myLyricsOutputHandler);
+            return _myLyricsOutputHandler.Result();
         }
     }
 }

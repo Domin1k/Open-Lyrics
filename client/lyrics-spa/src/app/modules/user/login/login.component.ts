@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { userValidation } from 'src/app/shared/models/user/user-validation.constants';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar) {
 
     this.loginForm = this.form.group({
-      username: ['', [Validators.required, Validators.minLength(2)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      username: ['', [Validators.required, Validators.minLength(userValidation.usernameLength)]],
+      password: ['', [Validators.required, Validators.minLength(userValidation.passwordLength)]]
     });
   }
 

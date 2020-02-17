@@ -18,7 +18,10 @@
             _dbContext = dbContext;
         }
 
-        public async Task<int> CountAsync() => await _dbContext.Lyrics.CountAsync();
+        public async Task<int> CountAsync(Expression<Func<Lyric, bool>> query = null)
+            => query == null
+                ? await _dbContext.Lyrics.Include(x => x.Author).CountAsync()
+                : await _dbContext.Lyrics.Include(x => x.Author).CountAsync(query);
 
         public async Task UpdateAsync(User entity)
         {
@@ -67,14 +70,14 @@
         public async Task<Lyric> GetAsync(int id)
              => await _dbContext
                 .Lyrics
-                .AsQueryable()
-                .AsNoTracking()
+               // .AsQueryable()
+                //.AsNoTracking()
                 .Include(x => x.Author)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task UpdateAsync(Lyric entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+          //  _dbContext.Entry(entity).State = EntityState.Modified;
 
             await _dbContext.SaveChangesAsync();
         }
@@ -111,6 +114,7 @@
         public async Task<IEnumerable<Lyric>> GetAllQueryAsync(Expression<Func<Lyric, bool>> query, int page, int pageSize)
             => await _dbContext
                 .Lyrics
+                .Include(x => x.Author)
                 .Where(query)
                 .Skip(pageSize * (page))
                 .Take(pageSize)

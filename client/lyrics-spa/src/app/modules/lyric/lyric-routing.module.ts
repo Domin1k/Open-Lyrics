@@ -23,18 +23,21 @@ const routes: Routes = [
     },
     {
         path: 'lyrics/my',
-        component: MyComponent, canActivate: [AuthGuard],
+        component: MyComponent,
+        canActivate: [AuthGuard],
         resolve: {
             myLyrics: MyLyricsResolver
         }
     },
     {
         path: 'lyrics/edit/:id',
-        component: EditComponent, canActivate: [AuthGuard]
+        component: EditComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'lyrics/delete/:id',
-        component: DeleteComponent, canActivate: [AuthGuard]
+        component: DeleteComponent,
+        canActivate: [AuthGuard]
     },
 ];
 

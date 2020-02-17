@@ -1,7 +1,7 @@
-<mat-card>
+<mat-card ngClass="custom-form">
     <mat-card-title>Create New Lyric</mat-card-title>
     <mat-card-content>
-        <form [formGroup]="createLyricForm" (ngSubmit)="create(createLyricForm.value)">
+        <form ngClass="lyric-form" [formGroup]="createLyricForm" (ngSubmit)="create(createLyricForm.value)">
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Song's singer *</mat-label>

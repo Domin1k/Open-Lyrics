@@ -17,9 +17,11 @@ export class NavigationComponent implements OnInit {
     private router: Router) {
 
     this.searchForm = this.fb.group({
-      searchBar: ['', (Validators.required, Validators.minLength(2))]
+      searchBar: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z0-9]+')]]
     });
   }
+
+  get f() { return this.searchForm.controls;}
 
   ngOnInit(): void {
   }
@@ -29,6 +31,7 @@ export class NavigationComponent implements OnInit {
   }
 
   search(data: any) {
+    console.log('asdasdas')
     this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar}}).then(() => this.searchForm.reset());
   }
 }

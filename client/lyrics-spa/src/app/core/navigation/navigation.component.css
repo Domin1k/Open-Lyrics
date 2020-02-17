@@ -1,7 +1,17 @@
 .search-input {
-    width: 250px;
+    width: 150px;
+    margin-left: 10%;
 }
 
 .home-link {
     cursor: pointer;
+}
+
+.fill-space {
+    flex: 1 1 auto;
+}
+
+.search-alerts {
+    display: inline;
+    font-size: 12px;
 }

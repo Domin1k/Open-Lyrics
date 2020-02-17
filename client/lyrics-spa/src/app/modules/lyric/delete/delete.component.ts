@@ -27,7 +27,6 @@ export class DeleteComponent implements OnInit {
   ngOnInit() {
     this.lyricSvc.details(this.route.snapshot.params.id)
       .subscribe(res => {
-        console.log(res);
         this.deleteLyricForm = this.form.group({
           singer: [res.singer, [Validators.required, Validators.minLength(2)]],
           title: [res.title, [Validators.required, Validators.minLength(4)]],
@@ -44,12 +43,9 @@ export class DeleteComponent implements OnInit {
       }
       this.lyricSvc.delete(this.route.snapshot.params.id)
         .subscribe(() => {
-          this.snackBar.open('Successfully deleted lyric', '', {duration: 1500, verticalPosition: 'top'});
+          this.snackBar.open('Successfully deleted lyric', '', { duration: 1500, verticalPosition: 'top' });
           this.router.navigate(['lyrics/my']);
         })
-
     });
-
   }
-
 }

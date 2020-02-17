@@ -5,6 +5,7 @@ import { UserRegisterRequestModel } from 'src/app/shared/models/user/user-regist
 import { MustMatch } from 'src/app/shared/validators/mustMatch.validator';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { userValidation } from 'src/app/shared/models/user/user-validation.constants';
 
 @Component({
   selector: 'app-register',
@@ -24,10 +25,10 @@ export class RegisterComponent implements OnInit {
     private snackBar: MatSnackBar) {
 
     this.registerForm = this.form.group({
-      firstName: ['', [Validators.required, Validators.minLength(4)]],
-      lastName: ['', [Validators.required, Validators.minLength(4)]],
-      username: ['', [Validators.required, Validators.minLength(2)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required, Validators.minLength(userValidation.firstNameLength)]],
+      lastName: ['', [Validators.required, Validators.minLength(userValidation.lastNameLength)]],
+      username: ['', [Validators.required, Validators.minLength(userValidation.usernameLength)]],
+      password: ['', [Validators.required, Validators.minLength(userValidation.passwordLength)]],
       confirmPassword: ['', [Validators.required]],
       email: ['', [Validators.required, , Validators.email]]
     },

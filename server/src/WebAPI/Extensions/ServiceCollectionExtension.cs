@@ -7,6 +7,7 @@
     using Application.UseCases.Lyrics.Details;
     using Application.UseCases.Lyrics.Edit;
     using Application.UseCases.Lyrics.GetAll;
+    using Application.UseCases.Lyrics.My;
     using Application.UseCases.User.Login;
     using Application.UseCases.User.Register;
     using Foundation;
@@ -37,6 +38,7 @@
 
             // Use cases:
             services.AddScoped(typeof(IAllLyricsInputHandler<>), typeof(AllLyricsUseCase<>));
+            services.AddScoped(typeof(IMyLyricsInputHandler<>), typeof(MyLyricsUseCase<>));
             services.AddScoped(typeof(ICreateLyricInputHandler<>), typeof(CreateLyricUseCase<>));
             services.AddScoped(typeof(IEditLyricInputHandler<>), typeof(EditLyricUseCase<>));
             services.AddScoped(typeof(IDeleteLyricInputHandler<>), typeof(DeleteLyricUseCase<>));
@@ -46,6 +48,7 @@
 
             // Presenters:
             services.AddScoped<IAllLyricsOutputHandler<IActionResult>, AllLyricsPresenter>();
+            services.AddScoped<IMyLyricsOutputHandler<IActionResult>, MyLyricsPresenter>();
             services.AddScoped<ICreateLyricOutputHandler<IActionResult>, CreateLyricPresenter>();
             services.AddScoped<IEditLyricOutputHandler<IActionResult>, EditLyricPresenter>();
             services.AddScoped<IDeleteLyricOutputHandler<IActionResult>, DeleteLyricPresenter>();

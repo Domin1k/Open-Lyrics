@@ -4,6 +4,7 @@ import { LyricService } from 'src/app/core/services/lyric.service';
 import { EditLyricRequestModel } from 'src/app/shared/models/lyric/edit-lyric-request.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { lyricValidation } from 'src/app/shared/models/lyric/lyric-validation.constants';
 
 @Component({
   selector: 'app-edit',
@@ -27,9 +28,9 @@ export class EditComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.editLyricForm = this.form.group({
-          singer: [res.singer, [Validators.required, Validators.minLength(2)]],
-          title: [res.title, [Validators.required, Validators.minLength(4)]],
-          text: [res.text, [Validators.required, Validators.minLength(20)]]
+          singer: [res.singer, [Validators.required, Validators.minLength(lyricValidation.singerLength)]],
+          title: [res.title, [Validators.required, Validators.minLength(lyricValidation.titleLength)]],
+          text: [res.text, [Validators.required, Validators.minLength(lyricValidation.textLength)]]
         });
       })
   }

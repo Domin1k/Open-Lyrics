@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { LyricService } from 'src/app/core/services/lyric.service';
 import {CreateLyricRequestModel} from '../../../shared/models/lyric/create-lyric-request.model'
 import { Router } from '@angular/router';
+import { lyricValidation } from 'src/app/shared/models/lyric/lyric-validation.constants';
 
 @Component({
   selector: 'app-create',
@@ -14,9 +15,9 @@ export class CreateComponent implements OnInit {
   
   constructor(private form: FormBuilder, private lyricSvc: LyricService, private router: Router) {
     this.createLyricForm = this.form.group({
-     singer: ['', [Validators.required, Validators.minLength(2)]],
-     text: ['', [Validators.required, Validators.minLength(20)]],
-     title: ['', [Validators.required, Validators.minLength(4)]]
+     singer: ['', [Validators.required, Validators.minLength(lyricValidation.singerLength)]],
+     text: ['', [Validators.required, Validators.minLength(lyricValidation.textLength)]],
+     title: ['', [Validators.required, Validators.minLength(lyricValidation.titleLength)]]
     });
   }
 
