@@ -1,9 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { LyricService } from '../services/lyric.service';
-import { AllLyricsRequestModel } from 'src/app/shared/models/lyric/all-lyrics-request.model';
-import { AllLyricsResponseModel } from 'src/app/shared/models/lyric/all-lyrics-response.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
   searchForm: FormGroup;
-  searchLyricData: AllLyricsResponseModel;
   
   constructor(
     private fb: FormBuilder,
@@ -33,7 +29,6 @@ export class NavigationComponent implements OnInit {
   }
 
   search(data: any) {
-    this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar}});
-    this.searchForm.reset();
+    this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar}}).then(() => this.searchForm.reset());
   }
 }

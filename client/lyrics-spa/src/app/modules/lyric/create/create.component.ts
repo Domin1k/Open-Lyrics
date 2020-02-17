@@ -26,7 +26,6 @@ export class CreateComponent implements OnInit {
   }
 
   create(formData: any) {
-    console.log(formData)
     this.lyricSvc.create(new CreateLyricRequestModel(formData.text, formData.title, formData.singer))
       .subscribe(res => {
        this.router.navigate(['/lyrics/detail/', res]) 

@@ -1,5 +1,3 @@
 export class EditLyricRequestModel {
-    text: string;
-    title: string;
-    singer: string;
+    constructor(public text: string, public title: string, public singer: string) { }
 }

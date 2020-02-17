@@ -1,3 +1,7 @@
 .search-input {
     width: 250px;
 }
+
+.home-link {
+    cursor: pointer;
+}

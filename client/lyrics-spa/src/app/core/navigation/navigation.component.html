@@ -3,7 +3,7 @@
         <button *ngIf="isLoggedIn" mat-icon-button>
             <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
         </button>
-        <h1 [routerLink]="'/'">Open Lyrics</h1>
+        <h1 ngClass="home-link" [routerLink]="'/'">Open Lyrics</h1>
         <span class="menu-spacer"></span>
         <div>
             <a mat-button *ngIf="!isLoggedIn" [routerLink]="'/user/login'"> Login </a>

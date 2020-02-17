@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LyricDetailsResponseModel } from 'src/app/shared/models/lyric/details-lyric-response.model';
 import { ActivatedRoute } from '@angular/router';
-import { LyricService } from 'src/app/core/services/lyric.service';
 
 @Component({
   selector: 'app-detail',
@@ -9,14 +8,15 @@ import { LyricService } from 'src/app/core/services/lyric.service';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  @Input()lyric: LyricDetailsResponseModel;
-  
-  constructor(private ar: ActivatedRoute, private lyricSvc: LyricService) { }
+  @Input() lyric: LyricDetailsResponseModel;
+
+  constructor(private ar: ActivatedRoute) { }
 
   ngOnInit() {
     this.ar.data.subscribe(res => {
-      this.lyric = res.detailLyric;
+      if (res.detailLyric) {
+        this.lyric = res.detailLyric;
+      }
     })
   }
-
 }
