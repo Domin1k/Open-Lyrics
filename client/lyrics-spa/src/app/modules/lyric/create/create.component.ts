@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css', '../../../shared/forms.css']
+  styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
   createLyricForm: FormGroup;

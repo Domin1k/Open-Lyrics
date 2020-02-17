@@ -11,10 +11,10 @@ import { UserModule } from './modules/user/user.module';
 import { CustomMaterialModule } from './modules/custom-material.module';
 import { LyricModule } from './modules/lyric/lyric.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from './core/interceptors/auth/token-interceptor';
 import { UserService } from './core/services/user.service';
 import { LyricService } from './core/services/lyric.service';
 import { AllLyricsResolver } from './core/resolvers/all-lyrics.resolver';
+import { HttpConfigInterceptor } from './core/interceptors/auth/http-config.interceptor';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import { AllLyricsResolver } from './core/resolvers/all-lyrics.resolver';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: HttpConfigInterceptor,
       multi: true
     },
     UserService,

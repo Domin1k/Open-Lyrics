@@ -2,15 +2,18 @@
     <h3>Song lyrics</h3>
     <mat-spinner class="loading-spinner" *ngIf="!length"></mat-spinner>
     <mat-divider></mat-divider>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="lyricsData.length > 0">
         <mat-list-item *ngFor="let lyric of lyricsData">
             <a matLine [routerLink]="['lyrics/detail/', lyric.id]">
                 <mat-icon class="icon-angular"></mat-icon>
-                <span class="link-caption">{{lyric.singer}} - {{lyric.title}}</span>
+                <span class="link-caption">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+                    {{lyric.singer}} - {{lyric.title}}</span>
             </a>
             <h5 matline> Uploaded by {{lyric.authorName}} </h5>
         </mat-list-item>
     </mat-nav-list>
+    <h2 class="mat-h1 text-center" *ngIf="lyricsData.length === 0">No results!</h2>
 
     <mat-divider></mat-divider>
 

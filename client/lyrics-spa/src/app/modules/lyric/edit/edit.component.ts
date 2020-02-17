@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css', '../../../shared/forms.css']
+  styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
   editLyricForm: FormGroup;

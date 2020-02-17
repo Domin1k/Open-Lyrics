@@ -7,7 +7,7 @@ import { DeleteDialogComponent } from './delete-dialog.component';
 @Component({
   selector: 'app-delete',
   templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.css', '../../../shared/forms.css']
+  styleUrls: ['./delete.component.css']
 })
 export class DeleteComponent implements OnInit {
   deleteLyricForm: FormGroup;

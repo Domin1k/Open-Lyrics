@@ -18,7 +18,6 @@ export class NavigationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userSvc: UserService,
-    private lyricSvc: LyricService,
     private router: Router) {
 
     this.searchForm = this.fb.group({
@@ -35,5 +34,6 @@ export class NavigationComponent implements OnInit {
 
   search(data: any) {
     this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar}});
+    this.searchForm.reset();
   }
 }
