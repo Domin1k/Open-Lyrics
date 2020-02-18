@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
   searchForm: FormGroup;
-  
+
   constructor(
     private fb: FormBuilder,
     private userSvc: UserService,
@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  get f() { return this.searchForm.controls;}
+  get f() { return this.searchForm.controls; }
 
   ngOnInit(): void {
   }
@@ -31,7 +31,6 @@ export class NavigationComponent implements OnInit {
   }
 
   search(data: any) {
-    console.log('asdasdas')
-    this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar}}).then(() => this.searchForm.reset());
+    this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar } }).then(() => this.searchForm.reset());
   }
 }

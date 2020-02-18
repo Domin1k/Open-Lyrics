@@ -38,7 +38,6 @@ export class DeleteComponent implements OnInit {
   remove() {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if (!result) {
-        // user declines deletion
         return;
       }
       this.lyricSvc.delete(this.route.snapshot.params.id)

@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   login(data) {
     this.userSvc.login(data.username, data.password)
-      .subscribe((res) => {
+      .subscribe(() => {
         this.snackBar.open('User logged in successfully', '', { duration: 1500, verticalPosition: 'top' })
         this.router.navigate(['/'])
       });

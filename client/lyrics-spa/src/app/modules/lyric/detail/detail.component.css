@@ -1,20 +1,10 @@
-/* .subtitle-container {
-    text-align: center;
-    margin-left: 30%;
-}
-
-.subtitle-content {
-    margin-left: 30%;
-    margin-right: 30%;
-}
-
-.subtitle-content-text {
-    text-align: center;
-    vertical-align: middle;
-} */
-
 .subtitle-container {
     padding-left: 30%;
     padding-right: 30%;
     text-align: center;
+}
+
+.subtitle-content {
+    justify-content: center;
+    align-items: center;
 }

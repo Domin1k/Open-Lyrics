@@ -35,7 +35,7 @@ export class MyComponent implements OnInit {
       })
   }
 
-   details(lyric: LyricResponseModel) {
+  details(lyric: LyricResponseModel) {
     this.currentLyricDetails = {
       id: lyric.id,
       text: lyric.text,
@@ -44,5 +44,5 @@ export class MyComponent implements OnInit {
       title: lyric.title,
       authorId: lyric.authorId
     };
-   }
+  }
 }

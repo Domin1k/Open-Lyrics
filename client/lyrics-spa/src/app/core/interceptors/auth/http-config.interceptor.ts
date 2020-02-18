@@ -27,9 +27,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
         return next.handle(cloned).pipe(
             map((event: HttpEvent<any>) => {
-                if (event instanceof HttpResponse) {
-                    console.debug('event--->>>', event);
-                }
                 return event;
             }),
             catchError((error: HttpErrorResponse) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { LyricService } from 'src/app/core/services/lyric.service';
-import {CreateLyricRequestModel} from '../../../shared/models/lyric/create-lyric-request.model'
+import { CreateLyricRequestModel } from '../../../shared/models/lyric/create-lyric-request.model'
 import { Router } from '@angular/router';
 import { lyricValidation } from 'src/app/shared/models/lyric/lyric-validation.constants';
 
@@ -12,16 +12,16 @@ import { lyricValidation } from 'src/app/shared/models/lyric/lyric-validation.co
 })
 export class CreateComponent implements OnInit {
   createLyricForm: FormGroup;
-  
+
   constructor(private form: FormBuilder, private lyricSvc: LyricService, private router: Router) {
     this.createLyricForm = this.form.group({
-     singer: ['', [Validators.required, Validators.minLength(lyricValidation.singerLength)]],
-     text: ['', [Validators.required, Validators.minLength(lyricValidation.textLength)]],
-     title: ['', [Validators.required, Validators.minLength(lyricValidation.titleLength)]]
+      singer: ['', [Validators.required, Validators.minLength(lyricValidation.singerLength)]],
+      text: ['', [Validators.required, Validators.minLength(lyricValidation.textLength)]],
+      title: ['', [Validators.required, Validators.minLength(lyricValidation.titleLength)]]
     });
   }
 
-  get f() { return this.createLyricForm.controls;}
+  get f() { return this.createLyricForm.controls; }
 
   ngOnInit() {
   }
@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
   create(formData: any) {
     this.lyricSvc.create(new CreateLyricRequestModel(formData.text, formData.title, formData.singer))
       .subscribe(res => {
-       this.router.navigate(['/lyrics/detail/', res]) 
+        this.router.navigate(['/lyrics/detail/', res])
       })
   }
 }

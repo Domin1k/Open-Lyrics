@@ -15,6 +15,6 @@ export class LogoutComponent implements OnInit {
     this.userService.logout().subscribe(() => {
       this.snackBar.open('User logged out successfully', '', {duration: 1500, verticalPosition: 'top'})
       this.router.navigate(['user/login']);
-    }, error => console.error(error));
+    });
   }
 }

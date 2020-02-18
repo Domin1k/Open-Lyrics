@@ -11,7 +11,8 @@ import {
   MatInputModule,
   MatDialogModule,
   MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 const modules: any = [
@@ -26,11 +27,11 @@ const modules: any = [
   MatPaginatorModule,
   MatDialogModule,
   MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressBarModule
 ];
 
 @NgModule({
-  declarations: [],
   imports: modules,
   exports: modules
 })

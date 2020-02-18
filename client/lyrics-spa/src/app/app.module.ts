@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './modules/home/home.component';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FooterComponent } from './core/footer/footer.component';
 import { UserModule } from './modules/user/user.module';
 import { CustomMaterialModule } from './modules/custom-material.module';
 import { LyricModule } from './modules/lyric/lyric.module';
@@ -15,13 +14,16 @@ import { UserService } from './core/services/user.service';
 import { LyricService } from './core/services/lyric.service';
 import { AllLyricsResolver } from './core/resolvers/all-lyrics.resolver';
 import { HttpConfigInterceptor } from './core/interceptors/auth/http-config.interceptor';
+import { LoaderService } from './core/services/loader.service';
+import { LoaderComponent } from './modules/loader/loader.component';
+import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FooterComponent
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +41,15 @@ import { HttpConfigInterceptor } from './core/interceptors/auth/http-config.inte
       useClass: HttpConfigInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    },
     UserService,
     LyricService,
-    AllLyricsResolver
+    AllLyricsResolver,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

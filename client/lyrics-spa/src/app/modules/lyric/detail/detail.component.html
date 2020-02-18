@@ -1,10 +1,12 @@
 <mat-card class="subtitle-container">
-    <mat-card-title>{{lyric.singer}} - {{lyric.title}}</mat-card-title>
+    <mat-card-title>
+        <h2>{{lyric.singer}} - {{lyric.title}}</h2>
+    </mat-card-title>
     <mat-card-subtitle>
         <p>Artist: {{lyric.singer}}</p>
         <p>Lyric was created by {{lyric.authorName}}</p>
     </mat-card-subtitle>
     <mat-card-content class="subtitle-content">
-        <p class="subtitle-content-text">{{lyric.text}}</p>
+        {{lyric.text}}
     </mat-card-content>
 </mat-card>
