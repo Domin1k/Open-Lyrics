@@ -7,6 +7,7 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { DetailComponent } from './detail/detail.component';
 import { DetailLyricResolver } from '../../core/resolvers/detail-lyric.resolver';
 import { MyLyricsResolver } from 'src/app/core/resolvers/my-lyrics.resolver';
+import { LyricManageGuard } from 'src/app/core/guards/lyric-manage.guard';
 
 const routes: Routes = [
     {
@@ -14,7 +15,7 @@ const routes: Routes = [
         component: DetailComponent,
         resolve: {
             detailLyric: DetailLyricResolver
-        }
+        },
     },
     {
         path: 'lyrics/create',
@@ -32,12 +33,12 @@ const routes: Routes = [
     {
         path: 'lyrics/edit/:id',
         component: EditComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, LyricManageGuard]
     },
     {
         path: 'lyrics/delete/:id',
         component: DeleteComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, LyricManageGuard]
     },
 ];
 

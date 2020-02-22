@@ -129,5 +129,12 @@
                     Author = x.Author
                 })
                 .ToListAsync();
+
+        public async Task<int> GetAuthor(int id)
+        => await _dbContext
+                .Lyrics
+                .Where(x => x.Id == id)
+                .Select(x => x.AuthorId)
+                .FirstOrDefaultAsync();
     }
 }

@@ -2,6 +2,7 @@
 {
     using Application.Interfaces;
     using Application.Interfaces.Repositories;
+    using Application.UseCases.Lyrics.CanManage;
     using Application.UseCases.Lyrics.Create;
     using Application.UseCases.Lyrics.Delete;
     using Application.UseCases.Lyrics.Details;
@@ -45,6 +46,7 @@
             services.AddScoped(typeof(IRegisterInputHandler<>), typeof(RegisterUseCase<>));
             services.AddScoped(typeof(IDetailsLyricsInputHandler<>), typeof(DetailsLyricsUseCase<>));
             services.AddScoped(typeof(IAuthenticateInputHandler<>), typeof(AuthenticateUseCase<>));
+            services.AddScoped(typeof(ICanManageLyricInputHandler<>), typeof(CanManageLyricUseCase<>));
 
             // Presenters:
             services.AddScoped<IAllLyricsOutputHandler<IActionResult>, AllLyricsPresenter>();
@@ -55,6 +57,7 @@
             services.AddScoped<IRegisterOutputHandler<IActionResult>, RegisterUserPresenter>();
             services.AddScoped<IDetailsLyricsOutputHandler<IActionResult>, DetailsLyricsPresenter>();
             services.AddScoped<IAuthenticateOutputHandler<IActionResult>, AuthenticateUserPresenter>();
+            services.AddScoped<ICanManageLyricOutputHandler<IActionResult>, CanManageLyricPresenter>();
 
 
 

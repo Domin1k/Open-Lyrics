@@ -36,7 +36,6 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Lyric text *</mat-label>
                     <textarea formControlName="text" placeholder="Lyric text..." matInput></textarea>
-                    <mat-hint>Minimum length is xxx</mat-hint>
                 </mat-form-field>
                 <div *ngIf="f.text.invalid && (f.text.dirty || f.text.touched)" class="alert alert-danger">
                     <div *ngIf="f.text.errors?.required">

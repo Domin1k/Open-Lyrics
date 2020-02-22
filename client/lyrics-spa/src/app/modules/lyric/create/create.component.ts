@@ -4,6 +4,7 @@ import { LyricService } from 'src/app/core/services/lyric.service';
 import { CreateLyricRequestModel } from '../../../shared/models/lyric/create-lyric-request.model'
 import { Router } from '@angular/router';
 import { lyricValidation } from 'src/app/shared/models/lyric/lyric-validation.constants';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-create',
@@ -13,7 +14,11 @@ import { lyricValidation } from 'src/app/shared/models/lyric/lyric-validation.co
 export class CreateComponent implements OnInit {
   createLyricForm: FormGroup;
 
-  constructor(private form: FormBuilder, private lyricSvc: LyricService, private router: Router) {
+  constructor(
+    private form: FormBuilder,
+     private lyricSvc: LyricService,
+      private router: Router,
+      private snackBar: MatSnackBar) {
     this.createLyricForm = this.form.group({
       singer: ['', [Validators.required, Validators.minLength(lyricValidation.singerLength)]],
       text: ['', [Validators.required, Validators.minLength(lyricValidation.textLength)]],
@@ -29,6 +34,7 @@ export class CreateComponent implements OnInit {
   create(formData: any) {
     this.lyricSvc.create(new CreateLyricRequestModel(formData.text, formData.title, formData.singer))
       .subscribe(res => {
+        this.snackBar.open('Lyric created successfully', '', { duration: 1500, verticalPosition: 'top' })
         this.router.navigate(['/lyrics/detail/', res])
       })
   }

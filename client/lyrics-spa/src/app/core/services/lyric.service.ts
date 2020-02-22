@@ -8,6 +8,7 @@ import { AllLyricsRequestModel } from 'src/app/shared/models/lyric/all-lyrics-re
 import { AllLyricsResponseModel } from 'src/app/shared/models/lyric/all-lyrics-response.model';
 import { MyLyricsRequestModel } from 'src/app/shared/models/lyric/my-lyrics-request.model';
 import { MyLyricsResponseModel } from 'src/app/shared/models/lyric/my-lyrics-response.model';
+import { CanManageLyricResponseModel } from 'src/app/shared/models/lyric/canManage-lyric-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,10 @@ export class LyricService {
 
   details(id: number) {
     return this.http.get<LyricDetailsResponseModel>(`${this.lyricBaseUrl}/details/${id}`);
+  }
+
+  canManage(id: number) {
+    return this.http.get<CanManageLyricResponseModel>(`${this.lyricBaseUrl}/canManage/${id}`);
   }
 
   all(request: AllLyricsRequestModel) {

@@ -61,7 +61,7 @@
                     Id = x.Id,
                     Username = x.Username,
                     PasswordSalt = x.PasswordSalt,
-                    PasswordHash = x.PasswordHash
+                    PasswordHash = x.PasswordHash,
                 })
                 .FirstOrDefaultAsync();
         public async Task UpdateAsync(User entity)

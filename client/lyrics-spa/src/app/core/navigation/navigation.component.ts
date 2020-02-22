@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
     private router: Router) {
 
     this.searchForm = this.fb.group({
-      searchBar: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z0-9]+')]]
+      searchBar: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z0-9 ]+')]]
     });
   }
 
@@ -30,7 +30,11 @@ export class NavigationComponent implements OnInit {
     return this.userSvc.isLoggedIn();
   }
 
-  search(data: any) {
-    this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar } }).then(() => this.searchForm.reset());
+  search(data: any, formDirective: FormGroupDirective) {
+    this.router.navigate(['/'], { queryParams: { searchTerm: data.searchBar } })
+      .then(() => {
+        formDirective.resetForm();
+        this.searchForm.reset();
+      });
   }
 }

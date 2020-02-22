@@ -6,7 +6,7 @@
         <h1 ngClass="home-link" [routerLink]="'/'">Open Lyrics</h1>
         <span class="menu-spacer"></span>
         <div>
-            <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">
+            <form [formGroup]="searchForm" #formDirective="ngForm" (ngSubmit)="search(searchForm.value, formDirective)">
                 <mat-form-field class="search-input">
                     <mat-label>Search by singer</mat-label>
                     <input matInput formControlName="searchBar" type="search" />

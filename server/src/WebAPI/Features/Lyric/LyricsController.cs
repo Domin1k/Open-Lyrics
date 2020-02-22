@@ -1,5 +1,6 @@
 ﻿namespace WebAPI.Features.Lyric
 {
+    using Application.UseCases.Lyrics.CanManage;
     using Application.UseCases.Lyrics.Create;
     using Application.UseCases.Lyrics.Delete;
     using Application.UseCases.Lyrics.Details;
@@ -27,6 +28,8 @@
         private readonly IAllLyricsOutputHandler<IActionResult> _allLyricsOutputHandler;
         private readonly IMyLyricsInputHandler<IActionResult> _myLyricsInputHandler;
         private readonly IMyLyricsOutputHandler<IActionResult> _myLyricsOutputHandler;
+        private readonly ICanManageLyricInputHandler<IActionResult> _canManageLyricInputHandler;
+        private readonly ICanManageLyricOutputHandler<IActionResult> _canManageLyricOutputHandler;
 
         public LyricsController(
             ICreateLyricInputHandler<IActionResult> createLyricInputHandler,
@@ -40,7 +43,9 @@
             IAllLyricsInputHandler<IActionResult> allLyricsInputHandler,
             IAllLyricsOutputHandler<IActionResult> allLyricsOutputHandler,
             IMyLyricsInputHandler<IActionResult> myLyricsInputHandler,
-            IMyLyricsOutputHandler<IActionResult> myLyricsOutputHandler)
+            IMyLyricsOutputHandler<IActionResult> myLyricsOutputHandler,
+            ICanManageLyricInputHandler<IActionResult> canManageLyricInputHandler,
+            ICanManageLyricOutputHandler<IActionResult> canManageLyricOutputHandler)
         {
             _createLyricInputHandler = createLyricInputHandler;
             _createLyricOutputHandler = createLyricOutputHandler;
@@ -54,14 +59,22 @@
             _allLyricsOutputHandler = allLyricsOutputHandler;
             _myLyricsInputHandler = myLyricsInputHandler;
             _myLyricsOutputHandler = myLyricsOutputHandler;
+            _canManageLyricInputHandler = canManageLyricInputHandler;
+            _canManageLyricOutputHandler = canManageLyricOutputHandler;
         }
 
+        [HttpGet("canManage/{id:int}")]
+        public async Task<IActionResult> CanManage(int id)
+        {
+            await _canManageLyricInputHandler.HandleAsync(new CanManageLyricInput { Id = id, AuthorName = User.Identity.Name }, _canManageLyricOutputHandler);
+            return _canManageLyricOutputHandler.Result();
+        }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateLyricRequest request)
         {
             await _createLyricInputHandler.HandleAsync(
-                new CreateLyricInput { AuthorName = this.User.Identity.Name, Singer = request.Singer, Text = request.Text, Title = request.Title },
+                new CreateLyricInput { AuthorName = User.Identity.Name, Singer = request.Singer, Text = request.Text, Title = request.Title },
                 _createLyricOutputHandler);
             return _createLyricOutputHandler.Result();
         }

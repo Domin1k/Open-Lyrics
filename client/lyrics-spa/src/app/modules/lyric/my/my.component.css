@@ -34,3 +34,7 @@ li {
     background-color: #eee;
     transform: scale(1);
 }
+
+.detail-lyric {
+    margin-top: 25px;
+}
