@@ -3,7 +3,7 @@
     <mat-spinner class="loading-spinner" *ngIf="length === undefined"></mat-spinner>
     <mat-divider></mat-divider>
     <mat-nav-list *ngIf="lyricsData.length > 0">
-        <mat-list-item (click)="details(lyric)" *ngFor="let lyric of lyricsData">
+        <mat-list-item (click)="details(lyric)" *ngFor="let lyric of lyricsData" class="my-lyrics">
             <mat-icon mat-list-icon>library_music</mat-icon>
             <h4 mat-line>{{lyric.singer}} - {{lyric.title}}</h4>
             <p mat-line>Created by {{lyric.authorName}} </p>
